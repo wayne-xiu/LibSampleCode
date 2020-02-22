@@ -19,3 +19,6 @@ target_link_libraries(ceresHelloWorld ${CERES_LIBRARIES})
 
 add_executable(powell powell.cpp)
 target_link_libraries(powell ${CERES_LIBRARIES})
+
+add_executable(curveFitting curveFitting.cpp)
+target_link_libraries(curveFitting ${CERES_LIBRARIES})
