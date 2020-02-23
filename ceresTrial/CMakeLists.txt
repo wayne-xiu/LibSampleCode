@@ -22,3 +22,9 @@ target_link_libraries(powell ${CERES_LIBRARIES})
 
 add_executable(curveFitting curveFitting.cpp)
 target_link_libraries(curveFitting ${CERES_LIBRARIES})
+
+add_executable(robustCurveFitting robustCurveFitting.cpp)
+target_link_libraries(robustCurveFitting ${CERES_LIBRARIES})
+
+add_executable(simpleBundleAdjuster simpleBundleAdjuster.cpp)
+target_link_libraries(simpleBundleAdjuster ${CERES_LIBRARIES})
