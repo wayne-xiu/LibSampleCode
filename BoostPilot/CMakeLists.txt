@@ -20,15 +20,19 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE ${default_build_type})
 endif()
 
-# if(${UNIX})
-#      set(CMAKE_PREFIX_PATH "/home/boost_1.70.0/boost")
-# else()
-# 	set(CMAKE_PREFIX_PATH "C:/boost_1.70.0/boost")
-# endif()
-FIND_PACKAGE (Boost REQUIRED)
-INCLUDE_DIRECTORIES (
-   ${Boost_INCLUDE_DIRS}
-)
+if(${UNIX})
+    set(Boost_INCLUDE_DIR /usr/local/src/boost_1_70_0)
+    set(Boost_LIBRARY_DIR /usr/local/src/boost_1_70_0/stage/lib)
+else()
+    set(Boost_INCLUDE_DIR C:/boost_1.70.0)
+    set(Boost_LIBRARY_DIR C:/boost_1.70.0/stage/v140/x64/lib)
+endif()
+
+# find_package(Boost COMPONENTS chrono system filesystem REQUIRED)
+# find_package(Boost REQUIRED)
+find_package(Boost 1.70.0 REQUIRED)
+include_directories(${Boost_INCLUDE_DIR})
+link_directories(${Boost_LIBRARY_DIR})
 
 include_directories("${CMAKE_SOURCE_DIR}/include")
 
@@ -37,3 +41,4 @@ set(TEST_SOURCES
 )
 
 add_executable(BoostTest ${TEST_SOURCES})
+target_link_libraries(BoostTest ${BOOST_LIBRARIES})
