@@ -1,6 +1,14 @@
 # This file is used to ignore files which are generated
 # ----------------------------------------------------------------------------
 
+##### VisualStudioCode, VisualStudio
+.vscode/*
+.vs/*
+
+build/
+out/
+CMakeSettings.json
+
 *~
 *.autosave
 *.a
