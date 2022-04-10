@@ -7,12 +7,17 @@
 
 int main()
 {
+    int major_ver = BOOST_VERSION / 100000,
+        minor_ver = (BOOST_VERSION / 100) % 1000,
+		sub_minor_ver = BOOST_VERSION % 100;
+	std::cout << "boost version: " << major_ver << "." << minor_ver << "."
+        << sub_minor_ver << std::endl;
     // header only library example
     using namespace boost::lambda;
     typedef std::istream_iterator<int> in;
 
-    std::for_each(
-        in(std::cin), in(), std::cout << (_1 * 3) << " ");
+    // std::for_each(
+    //     in(std::cin), in(), std::cout << (_1 * 3) << " ");
 
     using boost::lexical_cast;
     int s = 42;
