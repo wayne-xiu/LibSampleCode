@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  dockerpilot:
+    image: dockerpilot
+    build:
+      context: .
+      dockerfile: ./Dockerfile
