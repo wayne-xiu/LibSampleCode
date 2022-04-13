@@ -26,7 +26,7 @@ using ceres::CauchyLoss;
 //   data = [x', y_observed'];
 
 const int kNumObservations = 67;
-const double data[] = {
+const double testData[] = {
 0.000000e+00, 1.133898e+00,
 7.500000e-02, 1.334902e+00,
 1.500000e-01, 1.213546e+00,
@@ -118,7 +118,7 @@ int main(int argc, char** argv) {
     for (int i = 0; i < kNumObservations; ++i) {
         CostFunction* cost_function =
                 new AutoDiffCostFunction<ExponentialResidual, 1, 1, 1>(
-                    new ExponentialResidual(data[2*i], data[2*i+1]));
+                    new ExponentialResidual(testData[2*i], testData[2*i+1]));
         // problem.AddResidualBlock(cost_function, nullptr, &m, &c);
         // with Cuachy LossFunction
         problem.AddResidualBlock(cost_function, new CauchyLoss(0.5),
