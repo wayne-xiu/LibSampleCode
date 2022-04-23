@@ -9,7 +9,7 @@ int main( int argc, char** argv)
     Mat im_src = imread("../../Media/book2.png");
     // Four corners of the book in source image
     vector<Point2f> pts_src;
-    pts_src.push_back(Point2f(141, 131));
+    pts_src.push_back(Point2d(141, 131));
     pts_src.push_back(Point2f(480, 159));
     pts_src.push_back(Point2f(493, 630));
     pts_src.push_back(Point2f(64, 601));

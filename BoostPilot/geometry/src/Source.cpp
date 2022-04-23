@@ -86,19 +86,41 @@ int main()
     std::cout << std::endl;
 
     /// Non-Cartesian
-    typedef bg::model::point<double, 2, bg::cs::spherical_equatorial<bg::degree>> spherical_point;
+    typedef bg::model::point<double, 2, bg::cs::spherical_equatorial<bg::degree>> spherical_point;    
     // spherical_point amsterdam(4.90, 52.37);
     // spherical_point paris(2.35, 48.86);
-    spherical_point amsterdam(23.725750 , 37.971536);
-    spherical_point paris(4.3826169, 50.8119483);
-    double const earth_radius = 3959; // miles
-    std::cout << "Distance between Amsterdam and Paris in miles: " << bg::distance(amsterdam, paris) * earth_radius /** 1.60934*/ << std::endl;
-
+    // spherical_point amsterdam(23.725750 , 37.971536);
+    // spherical_point paris(4.3826169, 50.8119483);
+    // double const earth_radius = 3959; // miles
+    // std::cout << "Distance between Amsterdam and Paris in miles: " << bg::distance(amsterdam, paris) * earth_radius /** 1.60934*/ << std::endl;
+    
     // calculation for below code is wrong - TODO
     // using geographic_point = bg::model::point<double, 2, bg::cs::geographic<bg::degree>>;
     // std::cout << "Distance between Amsterdam and Paris in Km: " << 
     //     bg::distance(geographic_point(23.725750 , 37.971536), geographic_point(4.3826169, 50.8119483)) << std::endl;
     // std::cout << std::endl;
+
+    typedef bg::srs::spheroid<double> stype;
+    typedef bg::strategy::distance::vincenty<stype> vincenty_type;
+    // spherical_point point1(-73.787500, 2.179167),
+    //             point2(106.139064, -2.162200);
+    spherical_point point1(-74.0, 40.0),
+                point2(-73.99994144771219, 40.00007799595619);
+    double relative_distance = bg::distance(point1, point2, vincenty_type());
+    std::cout.precision(15);
+    std::cout << "relative distance of nearly antipodal points: " << relative_distance << std::endl;
+    // corresponding direct problem for recovering
+    bg::formula::result_direct<double> result;
+    bg::srs::spheroid<double> spheroid(6378137.0, 6356752.3142451793);
+    typedef bg::formula::vincenty_direct<double, true, false, false, false> vincenty_direct_type;
+    const double pi = 3.1415926535;
+    result = vincenty_direct_type::apply(-74.0/180*pi, 40.0/180*pi, 10, 30/180.0*3.1415926535, spheroid);
+    std::cout << "vincenty_direct: " << result.lat2/pi*180.0 << ", " << result.lon2/pi*180.0 << std::endl;
+
+    // andoyer method
+    typedef bg::strategy::andoyer::direct <double, true, false, false, false> direct_t;
+    auto dir_r = direct_t::apply(-74.0/180*pi, 40.0/180*pi, 10, 30/180.0*3.1415926535, spheroid);
+    std::cout << "andoyer direct: " << dir_r.lat2/pi*180.0 << ", " << dir_r.lon2/pi*180.0 << std::endl;
 
     /// Check if a 2D polygon is convex or concave
     std::cout << "Is the polygon convex: " << std::boolalpha << IsConvex(poly) << std::endl;
