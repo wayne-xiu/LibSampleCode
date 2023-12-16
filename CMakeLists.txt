@@ -16,3 +16,5 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 add_subdirectory(GflagsPilot)
+
+add_subdirectory(EigenPilot)

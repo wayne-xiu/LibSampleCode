@@ -1,30 +1,12 @@
-cmake_minimum_required(VERSION 3.5)
+project(EigenPilot VERSION 0.0.1 LANGUAGES CXX)
 
-set(PROJECT_VERSION "0.0.1")
-project(EigenPilot
-        VERSION ${PROJECT_VERSION}
-        LANGUAGES CXX)
+find_package(Eigen3 REQUIRED)
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GUN" OR
-    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(warnings "-Wall -Wextra -Werror")
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    set(warnings "/W4 /WX /EHsc")
-endif()
+set(TEST_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/basics.cpp)
+add_executable(eigen_basics ${TEST_SOURCES})
+target_include_directories(eigen_basics PRIVATE ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(eigen_basics Eigen3::Eigen)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-set(CMAKE_CXX_STANDARD 11)
-# Set build type if not set
-set(default_build_type "Release")
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE ${default_build_type})
-endif()
-
-
-include_directories("${CMAKE_SOURCE_DIR}/include")
-
-set(TEST_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Source.cpp
-)
-
-add_executable(EigenTest ${TEST_SOURCES})
+add_executable(eigen_quaternion ${CMAKE_CURRENT_SOURCE_DIR}/src/quaternion.cpp)
+target_include_directories(eigen_quaternion PRIVATE ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(eigen_quaternion Eigen3::Eigen)
