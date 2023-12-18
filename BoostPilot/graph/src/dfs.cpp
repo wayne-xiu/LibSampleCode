@@ -1,20 +1,19 @@
-#include <iostream>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/depth_first_search.hpp>
+#include <iostream>
 
 // DFS visitor
-class dfs_visitor : public boost::default_dfs_visitor
-{
+class dfs_visitor : public boost::default_dfs_visitor {
 public:
     template <typename Vertex, typename Graph>
-    void discover_vertex(Vertex u, const Graph &g)
-    {
+    void discover_vertex(Vertex u, const Graph& g) {
         std::cout << "discovered vertex " << u << std::endl;
     }
 };
 
 void TestDFS() {
-    typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::directedS> graph;
+    typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::directedS>
+        graph;
 
     graph g(4);
     boost::add_edge(0, 1, g);

@@ -3,8 +3,8 @@
 // #define BOOST_TEST_ALTERNATIVE_INIT_API
 #include <boost/test/included/unit_test.hpp>
 #include <iostream>
-#include <vector>
 #include <list>
+#include <vector>
 
 BOOST_AUTO_TEST_CASE(first_test_fuction) {
     int a = 42;
@@ -16,26 +16,43 @@ class point3d {
     int x_;
     int y_;
     int z_;
+
 public:
-    point3d(int const x = 0, int const y = 0, int const z = 0) : x_(x), y_(y), z_(z){}
+    point3d(int const x = 0, int const y = 0, int const z = 0)
+        : x_(x), y_(y), z_(z) {}
 
-    int x() const { return x_; }
-    point3d& x(int const x) { x_ = x; return *this; }
-    int y() const { return y_; }
-    point3d& y(int const y) { y_ = y; return *this; }
-    int z() const { return z_; }
-    point3d& z(int const z) { z_ = z; return *this; }
+    int x() const {
+        return x_;
+    }
+    point3d& x(int const x) {
+        x_ = x;
+        return *this;
+    }
+    int y() const {
+        return y_;
+    }
+    point3d& y(int const y) {
+        y_ = y;
+        return *this;
+    }
+    int z() const {
+        return z_;
+    }
+    point3d& z(int const z) {
+        z_ = z;
+        return *this;
+    }
 
-    bool operator== (point3d const &pt) const {
+    bool operator==(point3d const& pt) const {
         return x_ == pt.x_ && y_ == pt.y_ && z_ == pt.z_;
     }
-    bool operator!= (point3d const &pt) const {
+    bool operator!=(point3d const& pt) const {
         return !(*this == pt);
     }
-    bool operator<(point3d const &pt) const {
+    bool operator<(point3d const& pt) const {
         return x_ < pt.x_ || y_ < pt.y_ || z_ < pt.z_;
     }
-    friend std::ostream& operator<< (std::ostream &stream, point3d const &pt) {
+    friend std::ostream& operator<<(std::ostream& stream, point3d const& pt) {
         stream << "(" << pt.x_ << ", " << pt.y_ << ", " << pt.z_ << ")";
         return stream;
     }
@@ -44,7 +61,9 @@ public:
         y_ += offsety;
         z_ += offsetz;
     }
-    static point3d origin() { return point3d{}; }
+    static point3d origin() {
+        return point3d{};
+    }
 };
 
 // int main(int argc, char* argv[]) {
@@ -57,7 +76,7 @@ BOOST_AUTO_TEST_CASE(test_constructor) {
     auto p = point3d{1, 2, 3};
     BOOST_TEST(p.x() == 1);
     BOOST_TEST(p.y() == 2);
-    BOOST_TEST(p.z() == 4);  // will fail
+    BOOST_TEST(p.z() == 4); // will fail
 }
 
 BOOST_AUTO_TEST_CASE(test_origin) {
@@ -69,7 +88,7 @@ BOOST_AUTO_TEST_CASE(test_origin) {
 
 BOOST_AUTO_TEST_SUITE_END()
 
-BOOST_AUTO_TEST_SUITE(test_operations)  // nested test suite
+BOOST_AUTO_TEST_SUITE(test_operations) // nested test suite
 BOOST_AUTO_TEST_SUITE(test_methods)
 
 BOOST_AUTO_TEST_CASE(test_offset) {
@@ -77,7 +96,7 @@ BOOST_AUTO_TEST_CASE(test_offset) {
     p.offset(1, 1, 1);
     BOOST_TEST(p.x() == 2);
     BOOST_TEST(p.y() == 3);
-    BOOST_TEST(p.z() == 3);  // will fail
+    BOOST_TEST(p.z() == 3); // will fail
 }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -87,18 +106,21 @@ BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE(test_operations)
 BOOST_AUTO_TEST_SUITE(test_operators)
 
-BOOST_AUTO_TEST_CASE(test_equal, *boost::unit_test::description("test operator==") *boost::unit_test::label("opeq"))
-{
+BOOST_AUTO_TEST_CASE(test_equal,
+                     *boost::unit_test::description("test operator==") *
+                         boost::unit_test::label("opeq")) {
     auto p1 = point3d{1, 2, 3};
     auto p2 = point3d{1, 2, 3};
     auto p3 = point3d{3, 2, 1};
     BOOST_TEST(p1 == p2);
-    BOOST_TEST(p1 == p3);  // will fail
+    BOOST_TEST(p1 == p3); // will fail
 }
 
-BOOST_AUTO_TEST_CASE(test_not_equal, *boost::unit_test::description("test operator!=") 
-    *boost::unit_test::label("opeq") *boost::unit_test::depends_on("test_operations/test_operators/test_equal"))
-{
+BOOST_AUTO_TEST_CASE(test_not_equal,
+                     *boost::unit_test::description("test operator!=") *
+                         boost::unit_test::label("opeq") *
+                         boost::unit_test::depends_on(
+                             "test_operations/test_operators/test_equal")) {
     auto p1 = point3d{1, 2, 3};
     auto p2 = point3d{3, 2, 1};
     BOOST_TEST(p1 != p2);
@@ -114,7 +136,6 @@ BOOST_AUTO_TEST_CASE(test_less) {
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
-
 
 BOOST_AUTO_TEST_SUITE(test_assertion)
 
@@ -132,17 +153,20 @@ BOOST_AUTO_TEST_CASE(test_basic) {
 
 BOOST_AUTO_TEST_SUITE_END()
 
-
 // Test fixture
 struct standard_fixture {
-    standard_fixture() { BOOST_TEST_MESSAGE("setup");}
-    ~standard_fixture() { BOOST_TEST_MESSAGE("cleanup"); }
+    standard_fixture() {
+        BOOST_TEST_MESSAGE("setup");
+    }
+    ~standard_fixture() {
+        BOOST_TEST_MESSAGE("cleanup");
+    }
     int n{42};
 };
 struct extended_fixture {
     std::string name;
-    int data;
-    extended_fixture(std::string const &n = "") : name(n), data(0){
+    int         data;
+    extended_fixture(std::string const& n = "") : name(n), data(0) {
         BOOST_TEST_MESSAGE("setup " + name);
     }
     ~extended_fixture() {
@@ -178,13 +202,17 @@ BOOST_FIXTURE_TEST_CASE(case3, standard_fixture) {
 BOOST_AUTO_TEST_SUITE_END()
 
 // define more than a single fixture
-BOOST_AUTO_TEST_CASE(test_case_multifix, *boost::unit_test::fixture<extended_fixture>(std::string("fix1"))
-    *boost::unit_test::fixture<extended_fixture>(std::string("fix2"))
-    *boost::unit_test::fixture<standard_fixture>()) {
-        BOOST_TEST(true);
+BOOST_AUTO_TEST_CASE(
+    test_case_multifix,
+    *boost::unit_test::fixture<extended_fixture>(std::string("fix1")) *
+        boost::unit_test::fixture<extended_fixture>(std::string("fix2")) *
+        boost::unit_test::fixture<standard_fixture>()) {
+    BOOST_TEST(true);
 }
 
 // use free functiona s setup and teardown
-BOOST_AUTO_TEST_CASE(test_case_multifix_freefunc, *boost::unit_test::fixture(&fixture_setup, &fixture_cleanup)) {
+BOOST_AUTO_TEST_CASE(test_case_multifix_freefunc,
+                     *boost::unit_test::fixture(&fixture_setup,
+                                                &fixture_cleanup)) {
     BOOST_TEST(true);
 }

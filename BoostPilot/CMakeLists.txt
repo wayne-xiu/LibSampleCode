@@ -19,3 +19,5 @@ add_subdirectory(multiindex)
 add_subdirectory(graph)
 
 add_subdirectory(asio)
+
+add_subdirectory(property_tree)

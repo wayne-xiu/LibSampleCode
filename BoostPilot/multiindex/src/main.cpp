@@ -1,21 +1,18 @@
-#include <boost/multi_index_container.hpp>
-#include <boost/multi_index/ordered_index.hpp>
 #include <boost/multi_index/member.hpp>
-
+#include <boost/multi_index/ordered_index.hpp>
+#include <boost/multi_index_container.hpp>
 #include <iostream>
 #include <string>
 // example of boost::multi_index_container
 
 using namespace boost::multi_index;
 
-struct Employee
-{
-    int id;
+struct Employee {
+    int         id;
     std::string name;
-    int age;
+    int         age;
 
-    friend std::ostream &operator<<(std::ostream &os, const Employee &e)
-    {
+    friend std::ostream& operator<<(std::ostream& os, const Employee& e) {
         os << e.id << " " << e.name << " " << e.age;
         return os;
     }
@@ -26,9 +23,8 @@ typedef multi_index_container<
     indexed_by<
         ordered_unique<member<Employee, int, &Employee::id>>,
         ordered_non_unique<member<Employee, std::string, &Employee::name>>,
-        ordered_non_unique<member<Employee, int, &Employee::age>>
-    >
-> employee_set;
+        ordered_non_unique<member<Employee, int, &Employee::age>>>>
+    employee_set;
 
 void TestMultiIndex() {
     employee_set es;
@@ -39,31 +35,30 @@ void TestMultiIndex() {
 
     // listing all employees
     std::cout << "all employees:" << std::endl;
-    for (auto &e : es) {
+    for (auto& e : es) {
         std::cout << e << std::endl;
     }
 
     // listing all employees by id
     std::cout << "all employees by id:" << std::endl;
-    for (const Employee &e : es.get<0>()) {
+    for (const Employee& e : es.get<0>()) {
         std::cout << e << std::endl;
     }
 
     // listing all employees by name
     std::cout << "all employees by name:" << std::endl;
-    for (const Employee &e : es.get<1>()) {
+    for (const Employee& e : es.get<1>()) {
         std::cout << e << std::endl;
     }
 
     // listing all employees by age
     std::cout << "all employees by age:" << std::endl;
-    for (const Employee &e : es.get<2>()) {
+    for (const Employee& e : es.get<2>()) {
         std::cout << e << std::endl;
     }
 }
 
-int main()
-{
+int main() {
     TestMultiIndex();
     return 0;
 }

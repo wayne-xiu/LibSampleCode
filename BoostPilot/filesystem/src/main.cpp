@@ -1,6 +1,6 @@
-#include <string>
-#include <iostream>
 #include <boost/filesystem.hpp>
+#include <iostream>
+#include <string>
 
 namespace bfs = boost::filesystem;
 
@@ -13,9 +13,10 @@ int main(int argc, char* argv[]) {
     cout << "pwd: " << full_path << endl;
 
     std::cout << "parent directory: " << full_path.parent_path() << std::endl;
-    
+
     /// check file size
-    cout << argv[0] << " file size: " << bfs::file_size(argv[0]) << " bytes" << endl;
+    cout << argv[0] << " file size: " << bfs::file_size(argv[0]) << " bytes"
+         << endl;
 
     /// check, create and remove directory
     std::string testdata_directory = "test_data";
@@ -25,15 +26,11 @@ int main(int argc, char* argv[]) {
     bfs::ofstream ofs{testdata_directory + "/test.txt"};
     ofs << "hello boost::filesystem\n";
 
-    try
-    {
+    try {
         bfs::remove_all(bfs::path(testdata_directory));
-    }
-    catch(const std::exception& e)
-    {
+    } catch (const std::exception& e) {
         std::cerr << e.what() << '\n';
     }
-    
 
     return 0;
 }
