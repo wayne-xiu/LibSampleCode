@@ -11,6 +11,8 @@ int main(int argc, char* argv[]) {
     /// pwd
     bfs::path full_path(bfs::current_path());
     cout << "pwd: " << full_path << endl;
+
+    std::cout << "parent directory: " << full_path.parent_path() << std::endl;
     
     /// check file size
     cout << argv[0] << " file size: " << bfs::file_size(argv[0]) << " bytes" << endl;

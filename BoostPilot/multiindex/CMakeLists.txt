@@ -1,10 +1,9 @@
 set(PROJECT_VERSION "0.0.1")
-project(GeometryPilot
+project(MultiIndexPilot
         VERSION ${PROJECT_VERSION}
         LANGUAGES CXX)
 
-# find_package(Boost COMPONENTS chrono system filesystem REQUIRED)
-find_package(Boost 1.70.0 REQUIRED)
+find_package(Boost 1.70 REQUIRED COMPONENTS program_options)
 include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIR})
 
