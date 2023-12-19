@@ -20,3 +20,5 @@ add_subdirectory(GflagsPilot)
 add_subdirectory(EigenPilot)
 
 add_subdirectory(BoostPilot)
+
+add_subdirectory(SpdlogPilot)
